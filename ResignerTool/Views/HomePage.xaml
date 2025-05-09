@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ResignerTool.Views.HomePage"
+             Title="App Resigner">
+
+    <ScrollView>
+        <Frame Margin="20" Padding="20">
+            <VerticalStackLayout Spacing="25">
+                <Label 
+                    Text="Welcome to App Resigner"
+                    Style="{StaticResource HeaderLabel}"
+                    HorizontalOptions="Center" />
+
+                <Label 
+                    Text="Choose your application type to begin"
+                    Style="{StaticResource SubHeaderLabel}"
+                    HorizontalOptions="Center" />
+
+                <Grid ColumnDefinitions="*, *" 
+                      ColumnSpacing="20" 
+                      Margin="0,20">
+                    
+                    <Frame Grid.Column="0" 
+                           Style="{StaticResource Card}">
+                        <VerticalStackLayout Spacing="15">
+                            <Label 
+                                Text="Android Apps"
+                                Style="{StaticResource SubHeaderLabel}"
+                                HorizontalOptions="Center" />
+                            
+                            <Label 
+                                Text="Resign APK files with new or existing keystores"
+                                Style="{StaticResource StatusLabel}"
+                                HorizontalOptions="Center" />
+                            
+                            <Button 
+                                Text="Resign APK"
+                                Command="{Binding NavigateToApkCommand}"
+                                HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame Grid.Column="1" 
+                           Style="{StaticResource Card}">
+                        <VerticalStackLayout Spacing="15">
+                            <Label 
+                                Text="iOS Apps"
+                                Style="{StaticResource SubHeaderLabel}"
+                                HorizontalOptions="Center" />
+                            
+                            <Label 
+                                Text="Resign IPA files with certificates and provisioning profiles"
+                                Style="{StaticResource StatusLabel}"
+                                HorizontalOptions="Center" />
+                            
+                            <Button 
+                                Text="Resign IPA"
+                                Command="{Binding NavigateToIpaCommand}"
+                                HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </Grid>
+
+                <Frame Style="{StaticResource Card}">
+                    <VerticalStackLayout Spacing="15">
+                        <Label 
+                            Text="Recent Activity"
+                            Style="{StaticResource SubHeaderLabel}"
+                            HorizontalOptions="Center" />
+
+                        <CollectionView
+                            ItemsSource="{Binding RecentLogs}"
+                            HeightRequest="200">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Label 
+                                        Text="{Binding}"
+                                        Style="{StaticResource StatusLabel}"
+                                        Margin="0,2"/>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                        <Button 
+                            Text="Clear Logs"
+                            Command="{Binding ClearLogsCommand}"
+                            Style="{StaticResource SecondaryButton}"
+                            HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
+        </Frame>
+    </ScrollView>
+
+</ContentPage>

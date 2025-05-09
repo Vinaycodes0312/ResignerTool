@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ResignerTool.ViewModels"
+             x:Class="ResignerTool.Views.ApkResignPage"
+             Title="APK Resign">
+
+    <ContentPage.BindingContext>
+        <vm:ApkResignViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <Frame Margin="20" Padding="20">
+            <VerticalStackLayout Spacing="20">
+                <Label 
+                    Text="APK Resigning Tool"
+                    Style="{StaticResource HeaderLabel}"
+                    HorizontalOptions="Center" />
+
+                <Frame Style="{StaticResource Card}">
+                    <VerticalStackLayout Spacing="15">
+                        <Label 
+                            Text="Select APK File"
+                            Style="{StaticResource SubHeaderLabel}"/>
+                        
+                        <Button 
+                            Text="Choose APK File"
+                            Command="{Binding SelectApkCommand}"
+                            HorizontalOptions="Center" />
+                        
+                        <Label 
+                            Text="{Binding ApkFilePath}"
+                            Style="{StaticResource StatusLabel}"
+                            HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame>
+                    <VerticalStackLayout Spacing="15">
+                        <Label 
+                            Text="Keystore Options"
+                            Style="{StaticResource SubHeaderLabel}"/>
+
+                        <Grid ColumnDefinitions="*, *" RowDefinitions="Auto,Auto" ColumnSpacing="10">
+                            <Button 
+                                Text="Use Existing Keystore"
+                                Command="{Binding SelectKeystoreCommand}"
+                                Style="{StaticResource SecondaryButton}"
+                                Grid.Column="0"/>
+                            
+                            <Button 
+                                Text="Create New Keystore"
+                                Command="{Binding CreateKeystoreCommand}"
+                                Grid.Column="1"/>
+                        </Grid>
+
+                        <Label 
+                            Text="{Binding KeystorePath}"
+                            Style="{StaticResource StatusLabel}"
+                            HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Keystore Creation Form (Visible when creating new keystore) -->
+                <Frame IsVisible="{Binding IsCreatingKeystore}">
+                    <VerticalStackLayout Spacing="15">
+                        <Label 
+                            Text="Create New Keystore"
+                            Style="{StaticResource SubHeaderLabel}"/>
+
+                        <Entry 
+                            Placeholder="Alias name"
+                            Text="{Binding KeystoreAlias}"
+                            IsEnabled="{Binding IsCreatingKeystore}"/>
+
+                        <Entry 
+                            Placeholder="Full Name (CN)"
+                            Text="{Binding KeystoreCN}"
+                            IsEnabled="{Binding IsCreatingKeystore}"/>
+
+                        <Entry 
+                            Placeholder="Organization (O)"
+                            Text="{Binding KeystoreOrg}"
+                            IsEnabled="{Binding IsCreatingKeystore}"/>
+
+                        <Entry 
+                            Placeholder="Password"
+                            Text="{Binding KeystorePassword}"
+                            IsPassword="True"
+                            IsEnabled="{Binding IsCreatingKeystore}"/>
+
+                        <Button 
+                            Text="Generate Keystore"
+                            Command="{Binding GenerateKeystoreCommand}"
+                            IsEnabled="{Binding CanGenerateKeystore}"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Main Resign Button -->
+                <Button 
+                    Text="Resign APK"
+                    Command="{Binding ResignApkCommand}"
+                    IsEnabled="{Binding IsReadyToResign}"
+                    HorizontalOptions="Center" />
+
+                <Label 
+                    Text="{Binding StatusMessage}"
+                    Style="{StaticResource StatusLabel}"
+                    HorizontalOptions="Center" />
+
+                <!-- Progress Indicator -->
+                <ActivityIndicator 
+                    IsRunning="{Binding IsBusy}"
+                    IsVisible="{Binding IsBusy}"
+                    HorizontalOptions="Center" />
+
+            </VerticalStackLayout>
+        </Frame>
+    </ScrollView>
+
+</ContentPage>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="ResignerTool.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:ResignerTool.Views"
+    Shell.FlyoutBehavior="Disabled"
+    Title="ResignerTool">
+
+    <TabBar>
+        <Tab Title="Home" Icon="home.png">
+            <ShellContent
+                ContentTemplate="{DataTemplate local:HomePage}" />
+        </Tab>
+        <Tab Title="APK" Icon="android.png">
+            <ShellContent
+                ContentTemplate="{DataTemplate local:ApkResignPage}" />
+        </Tab>
+        <Tab Title="IPA" Icon="apple.png">
+            <ShellContent
+                ContentTemplate="{DataTemplate local:IpaResignPage}" />
+        </Tab>
+    </TabBar>
+
+</Shell>

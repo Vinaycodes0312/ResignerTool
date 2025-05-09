@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ResignerTool.ViewModels"
+             x:Class="ResignerTool.Views.IpaResignPage"
+             Title="IPA Resign">
+    
+    <ContentPage.BindingContext>
+        <vm:IpaResignViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <Frame Margin="20" Padding="20">
+            <VerticalStackLayout Spacing="20">
+                <Label 
+                    Text="IPA Resigning Tool"
+                    Style="{StaticResource HeaderLabel}"
+                    HorizontalOptions="Center" />
+
+                <Frame>
+                    <VerticalStackLayout Spacing="15">
+                        <Label 
+                            Text="Select IPA File"
+                            Style="{StaticResource SubHeaderLabel}"/>
+                        
+                        <Button 
+                            Text="Choose IPA File"
+                            Command="{Binding SelectIpaCommand}"
+                            HorizontalOptions="Center" />
+                        
+                        <Label 
+                            Text="{Binding IpaFilePath}"
+                            Style="{StaticResource StatusLabel}"
+                            HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame>
+                    <VerticalStackLayout Spacing="15">
+                        <Label 
+                            Text="Certificate"
+                            Style="{StaticResource SubHeaderLabel}"/>
+
+                        <Entry 
+                            Placeholder="Certificate Name from Keychain"
+                            Text="{Binding CertificateName}"
+                            HorizontalOptions="Fill" />
+
+                        <Button 
+                            Text="Validate Certificate"
+                            Command="{Binding ValidateCertificateCommand}"
+                            Style="{StaticResource SecondaryButton}"
+                            HorizontalOptions="Center" />
+
+                        <Label 
+                            Text="{Binding CertificateStatus}"
+                            Style="{StaticResource StatusLabel}"
+                            HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame>
+                    <VerticalStackLayout Spacing="15">
+                        <Label 
+                            Text="Provisioning Profile"
+                            Style="{StaticResource SubHeaderLabel}"/>
+
+                        <Button 
+                            Text="Select Provisioning Profile"
+                            Command="{Binding SelectProvisioningProfileCommand}"
+                            HorizontalOptions="Center" />
+
+                        <Label 
+                            Text="{Binding ProvisioningProfilePath}"
+                            Style="{StaticResource StatusLabel}"
+                            HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Main Resign Button -->
+                <Button 
+                    Text="Resign IPA"
+                    Command="{Binding ResignIpaCommand}"
+                    IsEnabled="{Binding IsReadyToResign}"
+                    HorizontalOptions="Center" />
+
+                <Label 
+                    Text="{Binding StatusMessage}"
+                    Style="{StaticResource StatusLabel}"
+                    HorizontalOptions="Center" />
+
+                <!-- Progress Indicator -->
+                <ActivityIndicator 
+                    IsRunning="{Binding IsBusy}"
+                    IsVisible="{Binding IsBusy}"
+                    HorizontalOptions="Center" />
+
+            </VerticalStackLayout>
+        </Frame>
+    </ScrollView>
+
+</ContentPage>
